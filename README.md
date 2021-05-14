@@ -1,26 +1,29 @@
-**DEVELOPER INSTRUCTIONS:**
+# Namecheap for [`libdns`](https://github.com/libdns/libdns)
 
-This repo is a template for developers to use when creating new [libdns](https://github.com/libdns/libdns) provider implementations.
+[![Go Reference](https://pkg.go.dev/badge/test.svg)](https://pkg.go.dev/github.com/libdns/namecheap)
 
-Be sure to update:
+This package implements the [libdns interfaces](https://github.com/libdns/libdns) for namecheap, allowing you to manage DNS records.
 
-- The package name
-- The Go module name in go.mod
-- The latest `libdns/libdns` version in go.mod
-- All comments and documentation, including README below and godocs
-- License (must be compatible with Apache/MIT)
-- All "TODO:"s is in the code
-- All methods that currently do nothing
+## Usage
 
-Remove this section from the readme before publishing.
+See [namecheap api docs](https://www.namecheap.com/support/api/intro/) for details on how to get setup with using the namecheap API.
 
----
+Once you have an API Key and have whitelisted your client IP, you can begin using this library. There's a simple integration test under `./internal/testing` that can be used for testing with this library and serves as an exmpale for usage. You can pass in your credentials through command line flags:
 
-\<PROVIDER NAME\> for [`libdns`](https://github.com/libdns/libdns)
-=======================
+```shell
+go test ./internal/testing/... -api-key <your_api_key> -username <your_username> -domain example.com.
+```
 
-[![Go Reference](https://pkg.go.dev/badge/test.svg)](https://pkg.go.dev/github.com/libdns/TODO:PROVIDER_NAME)
+By default the sandbox URL is used but you can also pass the production endpint with the `-endpoint <url>` flag.
 
-This package implements the [libdns interfaces](https://github.com/libdns/libdns) for \<PROVIDER\>, allowing you to manage DNS records.
+## Testing
 
-TODO: Show how to configure and use. Explain any caveats.
+Unit tests are run with go tooling and gofmt should be run prior to submitting patches.
+
+```shell
+go test -race ./internal/namecheap/...
+```
+
+```shell
+go fmt ./...
+```
